@@ -14,11 +14,12 @@ function App() {
     setEnemies([
       ...enemies,
       {
-        top: clientX,
-        left: clientY,
+        top: clientY,
+        left: clientX,
       },
     ]);
   }
+  console.log(enemies);
   return (
     <div className="App">
       <div className="menu"></div>
