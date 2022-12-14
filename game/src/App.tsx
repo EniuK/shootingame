@@ -25,7 +25,17 @@ function App() {
       <div className="game" onClick={placeEnemy}>
         {enemies.map((e) => {
           return (
-            <div className="enemy" style={{ top: e.top, left: e.left }}></div>
+            <div
+              className="enemy"
+              style={{
+                top: e.top,
+                left: e.left,
+                background: "black",
+                width: "100px",
+                height: "100px",
+                position: "absolute",
+              }}
+            ></div>
           );
         })}
       </div>
