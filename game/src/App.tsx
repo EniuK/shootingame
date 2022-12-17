@@ -1,47 +1,59 @@
-import React, { useState } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import "./App.css";
 
 type Enemy = {
   top: number;
   left: number;
+  width: number;
+  height: number;
 };
 
-function App() {
+const App = () => {
   const [enemies, setEnemies] = useState<Enemy[]>([]);
+  const [time, setTime] = useState(1);
+  const placeEnemy = (event: MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = event;
 
-  function placeEnemy(e: React.MouseEvent<HTMLDivElement>) {
-    const { clientX, clientY } = e;
-    setEnemies([
-      ...enemies,
-      {
-        top: clientY,
-        left: clientX,
-      },
-    ]);
-  }
-  console.log(enemies);
+    const client = {
+      top: clientY,
+      left: clientX,
+      width: 150,
+      height: 150,
+    };
+
+    setEnemies([...enemies, client]);
+  };
+
+  useEffect(() => {
+    setInterval(() => {
+      enemies.map((enemy) => {
+        return (enemy.height = +1);
+      });
+    }, time);
+  }, [enemies, time]);
+
   return (
     <div className="App">
-      <div className="menu"></div>
+      <div className="menu" />
       <div className="game" onClick={placeEnemy}>
-        {enemies.map((e) => {
+        {enemies.map((enemy) => {
+          const { top, left, width, height } = enemy;
           return (
             <div
-              className="enemy"
               style={{
-                top: e.top,
-                left: e.left,
+                top: top,
+                left: left,
                 background: "black",
-                width: "100px",
-                height: "100px",
+                width: width + "px",
+                height: height + "px",
                 position: "absolute",
               }}
-            ></div>
+            />
           );
         })}
       </div>
     </div>
   );
-}
+};
 
 export default App;
