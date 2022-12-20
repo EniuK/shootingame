@@ -11,9 +11,10 @@ type Enemy = {
 const App = () => {
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [time, setTime] = useState(1);
+  const [tick, setTick] = useState(true);
   const placeEnemy = (event: MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = event;
-
+    setTick(!tick);
     const client = {
       top: clientY,
       left: clientX,
@@ -26,11 +27,13 @@ const App = () => {
 
   useEffect(() => {
     setInterval(() => {
+      setTime(time + 1);
+
       enemies.map((enemy) => {
-        return (enemy.height = +1);
+        return [enemy.height + 1, enemy.width + 1];
       });
-    }, time);
-  }, [enemies, time]);
+    }, 1);
+  }, [tick, time]);
 
   return (
     <div className="App">
