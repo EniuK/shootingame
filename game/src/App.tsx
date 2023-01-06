@@ -28,12 +28,14 @@ const App = () => {
   useEffect(() => {
     setInterval(() => {
       setTime(time + 1);
-
-      enemies.map((enemy) => {
+      //  console.log("chuj");
+      const hehe = enemies.map((enemy) => {
         return [enemy.height + 1, enemy.width + 1];
       });
-    }, 1);
-  }, [tick, time]);
+      console.log(hehe);
+      //setEnemies(hehe);
+    }, 1000);
+  }, [tick, time, enemies]);
 
   return (
     <div className="App">
