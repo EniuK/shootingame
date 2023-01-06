@@ -1,4 +1,5 @@
 import { useState, MouseEvent, useEffect } from "react";
+import { start } from "repl";
 import "./App.css";
 
 type Enemy = {
@@ -28,14 +29,19 @@ const App = () => {
   useEffect(() => {
     setInterval(() => {
       setTime(time + 1);
-      //  console.log("chuj");
+
       const hehe = enemies.map((enemy) => {
-        return [enemy.height + 1, enemy.width + 1];
+        console.log(enemy);
+        return {
+          ...enemy,
+          height: enemy.height + 100,
+          width: enemy.width + 100,
+        };
       });
-      console.log(hehe);
-      //setEnemies(hehe);
-    }, 1000);
-  }, [tick, time, enemies]);
+      // console.log(hehe);
+      setEnemies(hehe);
+    }, 20000);
+  }, [tick, time]);
 
   return (
     <div className="App">
