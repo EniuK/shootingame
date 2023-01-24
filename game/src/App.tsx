@@ -27,7 +27,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       setTime(time + 1);
 
       const hehe = enemies.map((enemy) => {
@@ -38,9 +38,10 @@ const App = () => {
           width: enemy.width + 100,
         };
       });
-      // console.log(hehe);
+      console.log(hehe);
       setEnemies(hehe);
-    }, 20000);
+    }, 1000);
+    return () => clearInterval(interval);
   }, [tick, time]);
 
   return (
