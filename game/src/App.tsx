@@ -14,7 +14,10 @@ const App = () => {
   const [tick, setTick] = useState(true);
   const placeEnemy = (event: MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = event;
-    setTick(!tick);
+    if (enemies.length === 0) {
+      setTick(!tick);
+    }
+
     const client = {
       top: clientY,
       left: clientX,
@@ -40,7 +43,7 @@ const App = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [tick, time]);
-
+  // didnt do anything :D
   return (
     <div className="App">
       <div className="menu" />
