@@ -12,20 +12,27 @@ const App = () => {
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [time, setTime] = useState(1);
   const [tick, setTick] = useState(true);
+  const placeEnemyButHelping = () => {
+    console.log("word");
+  };
+  const randomEnemyGenerator = () => {
+    const number = Math.floor(Math.random() * (100 - 1) + 1);
+    console.log(number);
+    number % 2 === 0 ? placeEnemyButHelping() : console.log("hihi");
+  };
   const placeEnemy = (event: MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = event;
-    if (enemies.length === 0) {
-      setTick(!tick);
-    }
-
+    randomEnemyGenerator();
     const client = {
       top: clientY,
       left: clientX,
-      width: 150,
-      height: 150,
+      width: 100,
+      height: 100,
     };
 
     setEnemies([...enemies, client]);
+
+    setTick(!tick);
   };
 
   useEffect(() => {
@@ -35,8 +42,8 @@ const App = () => {
       const hehe = enemies.map((enemy) => {
         return {
           ...enemy,
-          height: enemy.height + 100,
-          width: enemy.width + 100,
+          height: enemy.height + 50,
+          width: enemy.width + 50,
         };
       });
       setEnemies(hehe);
