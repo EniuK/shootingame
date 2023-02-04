@@ -8,8 +8,15 @@ type Enemy = {
   height: number;
 };
 
+const initialEnemy = {
+  top: 150,
+  left: 0,
+  width: 20,
+  height: 20,
+};
+
 const App = () => {
-  const [enemies, setEnemies] = useState<Enemy[]>([]);
+  const [enemies, setEnemies] = useState<Enemy[]>([initialEnemy]);
   const [time, setTime] = useState(1);
   const [tick, setTick] = useState(false);
   const placeEnemyRndomlyGenerated = (x: number, y: number) => {
@@ -20,7 +27,8 @@ const App = () => {
       height: 50,
     };
     console.log(spot);
-    setEnemies([...enemies, spot]);
+    // setEnemies([...enemies, spot]);
+    enemies.push(spot);
     console.log("enemies");
   };
   const randomEnemyGenerator = () => {
@@ -38,15 +46,27 @@ const App = () => {
     const { clientX, clientY } = event;
     // console.log(clientX);
     // console.log(clientY);
-    randomEnemyGenerator();
-    const client = {
-      top: clientY,
-      left: clientX,
-      width: 100,
-      height: 100,
-    };
 
-    setEnemies([...enemies, client]);
+    // const client = {
+    //   top: clientY,
+    //   left: clientX,
+    //   width: 100,
+    //   height: 100,
+    // };
+
+    const destroyEnemy = enemies.filter((vilian: any) => {
+      if (
+        vilian.top < clientX &&
+        vilian.top + vilian.height > clientX &&
+        vilian.left < clientY &&
+        vilian.left + vilian.width > clientY
+      ) {
+        return vilian;
+      } else return;
+    });
+    setEnemies(destroyEnemy);
+
+    // setEnemies([...enemies, client]);
 
     // setTick(!tick);
   };
@@ -63,7 +83,7 @@ const App = () => {
       });
       setEnemies(hehe);
       console.log(enemies);
-    }, 5000);
+    }, 1000);
   };
   tick ? intervalFunction() : console.log("nope");
 
